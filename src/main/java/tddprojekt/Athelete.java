@@ -2,7 +2,7 @@ package tddprojekt;
 
 
 public class Athelete {
-    private SessionLogbook logBook;
+    private SessionLog logBook;
     private double weight;
     private double height;
     private int age;
