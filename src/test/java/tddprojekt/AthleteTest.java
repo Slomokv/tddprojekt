@@ -13,11 +13,10 @@ public class AthleteTest {
     double weight = 77.3;
     int age = 25;
     Athlete testUser = new Athlete(height, weight, age);
-
-    }
+}
 
     @Test
-    public void testAthleteCreate(){
+    public void testAthleteCreation(){
 
         assertEquals(height, testUser.getHeight());
         assertEquals(weight, testUser.getWeight());
@@ -25,10 +24,18 @@ public class AthleteTest {
     }
 
     @Test
-    public void testAthleteLogbook(){
+    public void testEmptyLog(){
 
-        assertEquals(0,(testUser.getLogbook().size()));
-        
+        boolean logbookEmpty = (0 == testUser.getLogbook().size());
+        assertTrue(logbookEmpty);
+    }
 
+    @Test
+    public void testNonemptyLog(){
+
+        Session session = new Session(4.2, 15);
+        testUser.addSession(session);
+        boolean logbookNonEmpty = (0 != testuser.getLogbook().size());
+        assertTrue(logbookNonEmpty);
     }
 }

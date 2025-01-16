@@ -18,6 +18,13 @@ Fixa projektet för att fortskrida
 TODO:
 Påbörja steg 2, "SessionLogbook"
 
-16/1:
+16/1 (1):
 
-1. 
+1. Skrivit tester för Athlete och logbook (HashMap i Athlete)
+2. Skapat Athlete-klassen
+
+TODO: 
+Skriva färdigt tester för Athlete och logbook
+Köra testerna innan jag fortskrider
+
+16/1 (2):
