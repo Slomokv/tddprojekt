@@ -43,3 +43,11 @@ TODO:
 - Fixa "konstruktor b" som automatiskt lägger in datum, så jag skapar en konstruktorkedja
 - Testa färdig det sista i Session
 - Därefter arbeta på att "gröna" de färdiga testerna i ProfileTest
+
+
+16/1 (3):
+
+1. Skrivit om konstruktorn för Session
+2. Rundade av för varje operation för förväntat resultat på bSession kmph, avrundade endast på slutet
+3. Alla tester för session godkända!
+
