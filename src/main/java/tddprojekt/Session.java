@@ -22,9 +22,8 @@ public class Session {
     }
 
     public Session(double distance, int time) {
-        this.distance = distance;
-        this.time = time;
-        date = LocalDate.now();
+        this(distance, time, (LocalDate.now()));
+
     }
     
 

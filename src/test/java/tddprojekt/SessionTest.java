@@ -23,7 +23,7 @@ public class SessionTest {
 
         assertEquals(6.2, bSession.getDistance());
         assertEquals(16, bSession.getTime());
-        assertEquals(23.0, bSession.getKmph());
+        assertEquals(23.3, bSession.getKmph());
         assertEquals(2.6, bSession.getMinPerKm());
         assertEquals(today, bSession.getDate());
     
