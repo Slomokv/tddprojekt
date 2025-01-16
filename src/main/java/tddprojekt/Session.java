@@ -2,7 +2,6 @@ package tddprojekt;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.math.*;
 
 
 public class Session {
@@ -26,6 +25,8 @@ public class Session {
 
     }
     
+
+    //-------Getters-------
 
     public double getDistance(){
         return this.distance;

@@ -51,3 +51,12 @@ TODO:
 2. Rundade av för varje operation för förväntat resultat på bSession kmph, avrundade endast på slutet
 3. Alla tester för session godkända!
 
+TODO:
+- Skapa tester för fitnessScore
+- Implementera Profile med metoder för att lägga till Sessions, och samtidigt räkna ut fitnessScore
+
+16/1 (4):
+
+1. Skapat tester för fitnessScore, där ett test körs för varje Session som läggs till
+2. 
+
