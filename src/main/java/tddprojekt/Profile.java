@@ -19,17 +19,30 @@ public class Profile {
         this.fitnessScore = 0;
     }
 
-    public void addSession
+    public void addSession(Session session){
+        this.setFScore(this.fitnessScore + calcFScore(this.logBook, newSession));
+        this.setLogCount(this.getLogCount() + 1);
+        this.logBook.put("S" + this.getLogCount(), session);
+    }
+    public int calcFScore(HashMap<String, Session> logBook, Session session){
+        if (logBook.size() < 1) {
+            
+        }
+        //formel CS + (distance + (kmph/minPerKm) - (t/2);
+    }
 
 
 
-
+    //-------Get&Set-------
 
     public HashMap<String, Session> getLogBook(){
         return this.logBook;
     }
     public int getLogCount(){
         return this.logCount;
+    }
+    public void setLogCount(int count){
+        this.logCount = count;
     }
     public double getHeight(){
         return this.height;
@@ -42,6 +55,9 @@ public class Profile {
     }
     public int getFScore(){
         return this.fitnessScore;
+    }
+    public void setFScore(int score){
+        this.fitnessScore = score;
     }
 
 

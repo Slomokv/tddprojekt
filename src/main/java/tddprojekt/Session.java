@@ -24,7 +24,7 @@ public class Session {
         this(distance, time, (LocalDate.now()));
 
     }
-    
+
 
     //-------Getters-------
 
@@ -51,14 +51,11 @@ public class Session {
     public double calcKmph(double distance, int time){
         double hours = time/60.0;
         double kmph = distance/hours;
-        return roundToOneDecimal(kmph);
+        return Calculator.roundToOneDecimal(kmph);
     }
     public double calcMinPerKm(double distance, int time){
         double minPerKm = time/distance;
-        return roundToOneDecimal(minPerKm);
+        return Calculator.roundToOneDecimal(minPerKm);
     }
-    public double roundToOneDecimal(double value){
-        double cleanValue = (double) (Math.round(value * 10.0))/10.0;
-        return cleanValue;
-    }
+
 }
