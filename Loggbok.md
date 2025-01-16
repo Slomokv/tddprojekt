@@ -5,7 +5,7 @@
 3. Problem med Jacoco.exec
 
 TODO:
-Fixa projektet för att fortskrida
+- Fixa projektet för att fortskrida
 
 
 15/1:
@@ -16,7 +16,7 @@ Fixa projektet för att fortskrida
 4. Lade upp projektet på GitHub
 
 TODO:
-Påbörja steg 2, "SessionLogbook"
+- Påbörja steg 2, "SessionLogbook"
 
 16/1 (1):
 
@@ -24,7 +24,22 @@ Påbörja steg 2, "SessionLogbook"
 2. Skapat Athlete-klassen
 
 TODO: 
-Skriva färdigt tester för Athlete och logbook
-Köra testerna innan jag fortskrider
+- Skriva färdigt tester för Athlete och logbook
+- Köra testerna innan jag fortskrider
 
 16/1 (2):
+
+1. Ändrat Athlete till Profile (som i användarprofil)
+2. Byggt ut en räknare och lagt till km/h (double kmph) och kilometertid (double minPerKm)
+3. Skapat en räknare som avrundar till en decimal efter uträkning av dessa
+4. Testerna failade, problem i räknaren roundToOneDecimal...
+5. roundToOneDecimal fungerar, upptäckte fel i konstruktorn när bSession testade i SessionTest
+
+Reflektion:
+    - Kunde definitivt se nyttan i TDD innan projektstart, men det känns ganska bra
+    när man ser hur fel fångas som man hade upptäckt lite senare och haft svårare att hitta
+
+TODO:
+- Fixa "konstruktor b" som automatiskt lägger in datum, så jag skapar en konstruktorkedja
+- Testa färdig det sista i Session
+- Därefter arbeta på att "gröna" de färdiga testerna i ProfileTest
