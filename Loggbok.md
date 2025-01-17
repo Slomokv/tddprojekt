@@ -87,6 +87,7 @@ TODO:
 
 1. Tänkt om kring tester av calcFScore, skapar mockad Profile för att se att klassen beter sig rätt
 2. Insett under tiden jag implementerat calcFScore och dess undermetoder att jag behöver skriva om testerna för att matcha ny input
+3. Lagt till en variabel "keyChain" i form av en ArrayList innehållande alla nycklar till logBook
 
 
 Reflektion:
