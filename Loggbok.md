@@ -82,3 +82,8 @@ TODO:
 - Avsluta addSession, calcFScore och testa
 - Skriva tester för att kunna hantera, visa och ta bort Sessions från logBook hos en Profile
 
+
+17/1 (1):
+
+1. Tänkt om kring tester av calcFScore, skapar mockad Profile för att se att klassen beter sig rätt
+2. 

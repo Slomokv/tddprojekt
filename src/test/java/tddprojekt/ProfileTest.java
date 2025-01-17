@@ -1,8 +1,11 @@
 package tddprojekt;
 
 import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class ProfileTest {
     
@@ -13,6 +16,10 @@ public class ProfileTest {
     int age = 25;
     Profile testUser = new Profile(height, weight, age);
     Session testSession = new Session(4.2, 41);
+
+    @Mock
+    private Profile mcProfile;
+
 
     @Test
     public void testProfileCreation(){
@@ -33,7 +40,6 @@ public class ProfileTest {
     @Test
     public void testLogSize(){
 
-
         testUser.addSession(testSession)
                 .addSession(testSession)
                 .addSession(testSession);
@@ -44,11 +50,23 @@ public class ProfileTest {
         assertEquals(testUser.getLogCount(), logBookSize);
     }
 
+
+    @Test
+    public void testAddSession(){
+
+
+}
+
     @Test
     public void testFScore(){
-        
+
+        HashMap<String, Session> dummyMap = new HashMap<String, Session>();
+
+        when(mcProfile.calcFScore(testSession)).thenReturn(true);
+
+
         assertEquals(0, testUser.getFScore());
-        
+
         LocalDate dateOne = LocalDate.of(2025,1,13);
         LocalDate dateTwo = LocalDate.of(2025,1,14);
         LocalDate dateThree = LocalDate.of(2025,1,16);
@@ -69,6 +87,8 @@ public class ProfileTest {
         assertEquals(x, fstScore);
         assertEquals(y, sndScore);
         assertEquals(z, trdScore);
+
+        
     }
 
 }
