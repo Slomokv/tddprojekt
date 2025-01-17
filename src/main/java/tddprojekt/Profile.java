@@ -53,12 +53,13 @@ public class Profile {
         }
         else {
             //int timeSince = days since last run
+            // WHILE SOM räknar ner från logCount, plockar sista 2 nycklarna från keyChain och tar tidsdiffen BAM ez
             return fScoreFormula(currentFS, logBook.get(id), timeSince);
         }
         //formel CS + (distance + (kmph/minPerKm) - (t/2);
     }
     public int fScoreFormula(int currentFS, Session session, int timeSince){
-        return (currentFS + (
+        return (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
     }
 
 

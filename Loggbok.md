@@ -98,3 +98,8 @@ Reflektion:
 TODO:
 - Klura ut tidsdiff till variabel i dagar på två olika LocalDate-objekt.
 - Skriva om tester samt nya för att matcha ny funktionalitet hos addSession, calcFScore och undermetoder
+
+
+17/1 (2):
+
+1. Klurat ut allt utom LocalDate timediff mellan två datum
