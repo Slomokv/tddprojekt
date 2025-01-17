@@ -1,10 +1,12 @@
 package tddprojekt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Profile {
     private HashMap<String, Session> logBook;
     private int logCount;
+    private ArrayList<String> keyChain;
     private double height;
     private double weight;
     private int age;
@@ -22,13 +24,19 @@ public class Profile {
 
     public void addSession(Session session){
         this.setLogCount(this.getLogCount() + 1);
-        this.logBook.put("" + (1 + this.getLogCount()), session);
+        this.logBook.put(("" + (1 + this.getLogCount())), session);
+
         this.setFScore(calcFScore(this.logBook), this.getFScore());
 
     }
     public void removeSession(String id){
         HashMap<String, Session> newLogBook = this.getLogBook();
+        ArrayList<String> newKeyChain = this.getKeyChain();
+
         newLogBook.remove(id);
+        this.keyChain.remove("" + (1 + this.getLogCount())); //iterera genom för att ta bort IDt
+
+        this.setKeyChain(newKeyChain);
         this.setLogBook(newLogBook);
     }
 
@@ -68,6 +76,12 @@ public class Profile {
     }
     public void setLogCount(int count){
         this.logCount = count;
+    }
+    public ArrayList<String> getKeyChain(){
+        return this.keyChain;
+    }
+    public void setKeyChain(ArrayList<String> keyChain){
+        this.keyChain = keyChain;
     }
     public double getHeight(){
         return this.height;
