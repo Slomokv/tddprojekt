@@ -62,7 +62,9 @@ public class ProfileTest {
 
         HashMap<String, Session> dummyMap = new HashMap<String, Session>();
 
-        when(mcProfile.calcFScore(testSession)).thenReturn(true);
+        when(mcProfile.calcFScore(testSession)).thenReturn(19);
+        assertEquals(19, calcFScore(testSession));
+        verify(mcProfile).calcFScore(testSession);
 
 
         assertEquals(0, testUser.getFScore());

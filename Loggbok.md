@@ -86,4 +86,14 @@ TODO:
 17/1 (1):
 
 1. Tänkt om kring tester av calcFScore, skapar mockad Profile för att se att klassen beter sig rätt
-2. 
+2. Insett under tiden jag implementerat calcFScore och dess undermetoder att jag behöver skriva om testerna för att matcha ny input
+
+
+Reflektion:
+    Det har blivit väldigt mycket refaktorisering på addSession och calcFScore då jag inte tittat långt nog ner på listan i tid.
+    Som jag har förstått, är det enligt process, men jag tittar hellre längre ner på listan oftare nästa gång.
+
+
+TODO:
+- Klura ut tidsdiff till variabel i dagar på två olika LocalDate-objekt.
+- Skriva om tester samt nya för att matcha ny funktionalitet hos addSession, calcFScore och undermetoder

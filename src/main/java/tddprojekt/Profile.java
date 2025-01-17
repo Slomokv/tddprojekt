@@ -12,23 +12,45 @@ public class Profile {
 
     public Profile(double height, double weight, int age) {
         this.logBook = new HashMap<String, Session>();
-        this.logCount = logBook.size();
+        this.logCount = 0;
         this.height = height;
         this.weight = weight;
         this.age = age;
         this.fitnessScore = 0;
     }
 
+
     public void addSession(Session session){
-        this.setFScore(this.fitnessScore + calcFScore(this.logBook, newSession));
         this.setLogCount(this.getLogCount() + 1);
-        this.logBook.put("S" + this.getLogCount(), session);
+        this.logBook.put("" + (1 + this.getLogCount()), session);
+        this.setFScore(calcFScore(this.logBook), this.getFScore());
+
     }
-    public int calcFScore(HashMap<String, Session> logBook, Session session){
+    public void removeSession(String id){
+        HashMap<String, Session> newLogBook = this.getLogBook();
+        newLogBook.remove(id);
+        this.setLogBook(newLogBook);
+    }
+
+
+
+    public int calcFScore(HashMap<String, Session> logBook, int currentFS){
+        int id = logBook.size();
+
         if (logBook.size() < 1) {
-            
+            return 0;
+        }
+        else if (logBook.size() < 2) {
+            return fScoreFormula(currentFS, logBook.get(id), 0);
+        }
+        else {
+            //int timeSince = days since last run
+            return fScoreFormula(currentFS, logBook.get(id), timeSince);
         }
         //formel CS + (distance + (kmph/minPerKm) - (t/2);
+    }
+    public int fScoreFormula(int currentFS, Session session, int timeSince){
+        return (currentFS + (
     }
 
 
@@ -37,6 +59,9 @@ public class Profile {
 
     public HashMap<String, Session> getLogBook(){
         return this.logBook;
+    }
+    public void setLogBook(HashMap<String, Session> logBook){
+        this.logBook = logBook;
     }
     public int getLogCount(){
         return this.logCount;
