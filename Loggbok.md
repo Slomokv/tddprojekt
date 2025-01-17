@@ -102,4 +102,8 @@ TODO:
 
 17/1 (2):
 
-1. Klurat ut allt utom LocalDate timediff mellan två datum
+1. Skrivit ytterligare en metod timeBetweenDays som plockar antalet dagar mellan två sessioner, även om det gått flera år
+
+
+TODO:
+- Göra en smart metod som tar ut LocalDates från de två senast inlagda sessionerna i profilens logBook

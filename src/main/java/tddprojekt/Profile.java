@@ -2,6 +2,8 @@ package tddprojekt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.chrono.*;
 
 public class Profile {
     private HashMap<String, Session> logBook;
@@ -52,12 +54,26 @@ public class Profile {
             return fScoreFormula(currentFS, logBook.get(id), 0);
         }
         else {
-            //int timeSince = days since last run
+
+
+            int timeSince = timeBetweenDays(newDate, oldDate);
             // WHILE SOM räknar ner från logCount, plockar sista 2 nycklarna från keyChain och tar tidsdiffen BAM ez
             return fScoreFormula(currentFS, logBook.get(id), timeSince);
         }
-        //formel CS + (distance + (kmph/minPerKm) - (t/2);
     }
+
+    public int timeBetweenDays(LocalDate newDate, LocalDate oldDate){
+        int newDays = newDate.getDayOfYear();
+        int oldDays = oldDate.getDayOfYear();
+        int newYear = newDate.getYear();
+        int oldYear = oldDate.getYear();
+
+        if (newYear > oldYear){
+            newDays =+ (newYear + newDays);
+        }
+        return (newDays - oldDays);
+    }
+
     public int fScoreFormula(int currentFS, Session session, int timeSince){
         return (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
     }
