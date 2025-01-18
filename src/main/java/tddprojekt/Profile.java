@@ -69,7 +69,7 @@ public class Profile {
 
     public LocalDate[] lastSessions(HashMap<String, Session> logBook, ArrayList<String> keyChain){
         LocalDate[] dates = new LocalDate[2];
-        int i = (1 - keyChain.size());
+        int i = (keyChain.size() - 1);
         for (int j = 0; j < 2; j++) {
             dates[j] = logBook.get(keyChain.get(i-j)).getDate();
         }

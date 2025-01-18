@@ -138,3 +138,8 @@ TODO:
 
 TODO:
 - Hitta vad, var och varför index hamnar out of bounds...
+
+3. 1 - 2 = -1, inte 1...
+
+TODO:
+- Lös problemet med mockprofilen mcProfile, hur mockobjekt fungerar
