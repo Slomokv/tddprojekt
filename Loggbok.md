@@ -143,3 +143,10 @@ TODO:
 
 TODO:
 - Lös problemet med mockprofilen mcProfile, hur mockobjekt fungerar
+
+4. Mock fungerar inte alls som jag förstått med mcProfile, men det fungerar nu
+5. 92% täckning i Profile uppnådd, saknar bara removeSession och därmed sista if-satsens täckning i calcFScore
+
+TODO:
+- Implementera removeSession
+- Städa upp i addSession, calcFScore och lastSession

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ProfileTest {
     
@@ -61,14 +62,16 @@ public class ProfileTest {
     @Test
     public void testFScore(){
 
-        HashMap<String, Session> dummyMap = new HashMap<String, Session>();
+
         mcProfile = mock(Profile.class);
+        HashMap<String, Session> mcLogBook = mcProfile.getLogBook();
+        ArrayList<String> mcKeyChain = mcProfile.getKeyChain();
 
+        when(mcProfile.calcFScore(mcLogBook, mcKeyChain, 0)).thenReturn(19);
 
-        when(mcProfile.calcFScore(dummyMap, mcProfile.getKeyChain(), 0)).thenReturn(19);
         
-        assertEquals(19, mcProfile.calcFScore(dummyMap, mcProfile.getKeyChain(), 0));
-        verify(mcProfile).calcFScore(dummyMap, mcProfile.getKeyChain(), 0);
+        assertEquals(19, mcProfile.calcFScore(mcLogBook, mcKeyChain, 0));
+        verify(mcProfile).calcFScore(mcLogBook, mcKeyChain, 0);
 
 
         assertEquals(0, testUser.getFScore());
