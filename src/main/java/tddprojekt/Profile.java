@@ -3,7 +3,6 @@ package tddprojekt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
-import java.time.chrono.*;
 
 public class Profile {
     private HashMap<String, Session> logBook;
@@ -25,60 +24,48 @@ public class Profile {
 
 
     public void addSession(Session session){
-        this.setLogCount(this.getLogCount() + 1);
-        this.logBook.put(("" + (1 + this.getLogCount())), session);
+        int intId = this.getLogCount() + 1;
+        String stringId = ("" + intId);
+        this.setLogCount(intId);
 
-        this.setFScore(calcFScore(this.logBook), this.getFScore());
+        this.logBook.put(stringId, session);
+        this.keyChain.add(stringId);
+        this.setFScore(calcFScore(this.getLogBook(), this.getFScore()));
 
     }
     public void removeSession(String id){
-        HashMap<String, Session> newLogBook = this.getLogBook();
-        ArrayList<String> newKeyChain = this.getKeyChain();
-
-        newLogBook.remove(id);
+        this.logBook.remove(id);
         this.keyChain.remove("" + (1 + this.getLogCount())); //iterera genom för att ta bort IDt
-
-        this.setKeyChain(newKeyChain);
-        this.setLogBook(newLogBook);
     }
 
 
 
     public int calcFScore(HashMap<String, Session> logBook, int currentFS){
-        int id = logBook.size();
+        int logs = logBook.size();
+        String lastId = this.getKeyChain().get(logs - 1);
 
-        if (logBook.size() < 1) {
+        if (logs < 1) {
             return 0;
         }
-        else if (logBook.size() < 2) {
-            return fScoreFormula(currentFS, logBook.get(id), 0);
+        else if (logs < 2) {
+            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0);
         }
         else {
+            LocalDate[] dates =lastSessions(logBook);
+            int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);
 
-
-            int timeSince = timeBetweenDays(newDate, oldDate);
-            // WHILE SOM räknar ner från logCount, plockar sista 2 nycklarna från keyChain och tar tidsdiffen BAM ez
-            return fScoreFormula(currentFS, logBook.get(id), timeSince);
+            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince);
         }
     }
 
-    public int timeBetweenDays(LocalDate newDate, LocalDate oldDate){
-        int newDays = newDate.getDayOfYear();
-        int oldDays = oldDate.getDayOfYear();
-        int newYear = newDate.getYear();
-        int oldYear = oldDate.getYear();
-
-        if (newYear > oldYear){
-            newDays =+ (newYear + newDays);
+    public LocalDate[] lastSessions(HashMap<String, Session> logBook){
+        LocalDate[] dates = new LocalDate[2];
+        int i = (1 - this.getKeyChain().size());
+        for (int j = 0; j >= 1; j++) {
+            dates[j] = logBook.get(this.getKeyChain().get(i-j)).getDate();
         }
-        return (newDays - oldDays);
+        return dates;
     }
-
-    public int fScoreFormula(int currentFS, Session session, int timeSince){
-        return (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
-    }
-
-
 
     //-------Get&Set-------
 

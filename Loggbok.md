@@ -107,3 +107,12 @@ TODO:
 
 TODO:
 - Göra en smart metod som tar ut LocalDates från de två senast inlagda sessionerna i profilens logBook
+
+
+18/1 (1):
+
+1. Flyttat timeBetweenDays och fScoreFormula till Calculator
+2. Lagt till de sista underfunktionerna som behövs för att smidigt köra calcFScore
+
+TODO:
+- Köra testerna för Profile, och lägga till tester för undermetoder. Lär använda mocks
