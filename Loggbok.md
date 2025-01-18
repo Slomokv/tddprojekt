@@ -129,3 +129,12 @@ TODO:
 TODO:
 - Täcka resten av koden i Calculator och Profile med tester
 - Söka efter dålig logik, refaktorera
+
+
+18/1 (3):
+
+1. Fått upp täckningen, men har problem med något indexOutOfBounds som jag sökt efter förgäves
+2. Städat upp andra problem som väntade på att hända i Profile, och har rättat och lagt till saker i ProfileTest
+
+TODO:
+- Hitta vad, var och varför index hamnar out of bounds...

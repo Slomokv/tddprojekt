@@ -25,15 +25,21 @@ public class Profile {
 
 
     public void addSession(Session session){
+        HashMap<String, Session> newLogBook = this.getLogBook();
+        ArrayList<String> newKeyChain = this.getKeyChain();
+
         int intId = this.getLogCount() + 1;
         String stringId = ("" + intId);
+        newLogBook.put(stringId, session);
+        newKeyChain.add(stringId);
+
         this.setLogCount(intId);
+        this.setLogBook(newLogBook);
+        this.setKeyChain(newKeyChain);
 
-        this.logBook.put(stringId, session);
-        this.keyChain.add(stringId);
-        this.setFScore(calcFScore(this.getLogBook(), this.getFScore()));
-
+        this.setFScore(calcFScore(newLogBook, newKeyChain, this.getFScore()));
     }
+
     public void removeSession(String id){
         this.logBook.remove(id);
         this.keyChain.remove("" + (1 + this.getLogCount())); //iterera genom för att ta bort IDt
@@ -41,29 +47,31 @@ public class Profile {
 
 
 
-    public int calcFScore(HashMap<String, Session> logBook, int currentFS){
+    public int calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
         int logs = logBook.size();
-        String lastId = this.getKeyChain().get(logs - 1);
+
 
         if (logs < 1) {
             return 0;
         }
-        else if (logs < 2) {
+        else if (logs == 1) {
+            String lastId = keyChain.get(logs - 1);
             return Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0);
         }
         else {
-            LocalDate[] dates =lastSessions(logBook);
+            String lastId = keyChain.get(logs - 1);
+            LocalDate[] dates = lastSessions(logBook, keyChain);
             int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);
 
             return Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince);
         }
     }
 
-    public LocalDate[] lastSessions(HashMap<String, Session> logBook){
+    public LocalDate[] lastSessions(HashMap<String, Session> logBook, ArrayList<String> keyChain){
         LocalDate[] dates = new LocalDate[2];
-        int i = (1 - this.getKeyChain().size());
-        for (int j = 0; j >= 1; j++) {
-            dates[j] = logBook.get(this.getKeyChain().get(i-j)).getDate();
+        int i = (1 - keyChain.size());
+        for (int j = 0; j < 2; j++) {
+            dates[j] = logBook.get(keyChain.get(i-j)).getDate();
         }
         return dates;
     }

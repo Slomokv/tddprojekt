@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Profile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tddprojekt</a> &gt; <a href="index.source.html" class="el_package">tddprojekt</a> &gt; <span class="el_source">Profile.java</span></div><h1>Profile.java</h1><pre class="source lang-java linenums">package tddprojekt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.time.LocalDate;
+
+public class Profile {
+    private HashMap&lt;String, Session&gt; logBook;
+    private int logCount;
+    private ArrayList&lt;String&gt; keyChain;
+    private double height;
+    private double weight;
+    private int age;
+    private int fitnessScore;
+
+<span class="nc" id="L16">    public Profile(double height, double weight, int age) {</span>
+<span class="nc" id="L17">        this.logBook = new HashMap&lt;String, Session&gt;();</span>
+<span class="nc" id="L18">        this.logCount = 0;</span>
+<span class="nc" id="L19">        this.keyChain = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L20">        this.height = height;</span>
+<span class="nc" id="L21">        this.weight = weight;</span>
+<span class="nc" id="L22">        this.age = age;</span>
+<span class="nc" id="L23">        this.fitnessScore = 0;</span>
+<span class="nc" id="L24">    }</span>
+
+
+    public void addSession(Session session){
+<span class="nc" id="L28">        HashMap&lt;String, Session&gt; newLogBook = this.getLogBook();</span>
+<span class="nc" id="L29">        ArrayList&lt;String&gt; newKeyChain = this.getKeyChain();</span>
+
+<span class="nc" id="L31">        int intId = this.getLogCount() + 1;</span>
+<span class="nc" id="L32">        String stringId = (&quot;&quot; + intId);</span>
+<span class="nc" id="L33">        newLogBook.put(stringId, session);</span>
+<span class="nc" id="L34">        newKeyChain.add(stringId);</span>
+
+<span class="nc" id="L36">        this.setLogCount(intId);</span>
+<span class="nc" id="L37">        this.setLogBook(newLogBook);</span>
+<span class="nc" id="L38">        this.setKeyChain(newKeyChain);</span>
+
+<span class="nc" id="L40">        this.setFScore(calcFScore(newLogBook, newKeyChain, this.getFScore()));</span>
+<span class="nc" id="L41">    }</span>
+
+    public void removeSession(String id){
+<span class="nc" id="L44">        this.logBook.remove(id);</span>
+<span class="nc" id="L45">        this.keyChain.remove(&quot;&quot; + (1 + this.getLogCount())); //iterera genom för att ta bort IDt</span>
+<span class="nc" id="L46">    }</span>
+
+
+
+    public int calcFScore(HashMap&lt;String, Session&gt; logBook, ArrayList&lt;String&gt; keyChain, int currentFS){
+<span class="nc" id="L51">        int logs = logBook.size();</span>
+
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (logs &lt; 1) {</span>
+<span class="nc" id="L55">            return 0;</span>
+        }
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        else if (logs == 1) {</span>
+<span class="nc" id="L58">            String lastId = keyChain.get(logs - 1);</span>
+<span class="nc" id="L59">            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0);</span>
+        }
+        else {
+<span class="nc" id="L62">            String lastId = keyChain.get(logs - 1);</span>
+<span class="nc" id="L63">            LocalDate[] dates = lastSessions(logBook, keyChain);</span>
+<span class="nc" id="L64">            int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);</span>
+
+<span class="nc" id="L66">            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince);</span>
+        }
+    }
+
+    public LocalDate[] lastSessions(HashMap&lt;String, Session&gt; logBook, ArrayList&lt;String&gt; keyChain){
+<span class="nc" id="L71">        LocalDate[] dates = new LocalDate[2];</span>
+<span class="nc" id="L72">        int i = (1 - keyChain.size());</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        for (int j = 0; j &lt; 2; j++) {</span>
+<span class="nc" id="L74">            dates[j] = logBook.get(keyChain.get(i-j)).getDate();</span>
+        }
+<span class="nc" id="L76">        return dates;</span>
+    }
+
+    //-------Get&amp;Set-------
+
+    public HashMap&lt;String, Session&gt; getLogBook(){
+<span class="nc" id="L82">        return this.logBook;</span>
+    }
+    public void setLogBook(HashMap&lt;String, Session&gt; logBook){
+<span class="nc" id="L85">        this.logBook = logBook;</span>
+<span class="nc" id="L86">    }</span>
+    public int getLogCount(){
+<span class="nc" id="L88">        return this.logCount;</span>
+    }
+    public void setLogCount(int count){
+<span class="nc" id="L91">        this.logCount = count;</span>
+<span class="nc" id="L92">    }</span>
+    public ArrayList&lt;String&gt; getKeyChain(){
+<span class="nc" id="L94">        return this.keyChain;</span>
+    }
+    public void setKeyChain(ArrayList&lt;String&gt; keyChain){
+<span class="nc" id="L97">        this.keyChain = keyChain;</span>
+<span class="nc" id="L98">    }</span>
+    public double getHeight(){
+<span class="nc" id="L100">        return this.height;</span>
+    }
+    public double getWeight(){
+<span class="nc" id="L103">        return this.weight;</span>
+    }
+    public int getAge(){
+<span class="nc" id="L106">        return this.age;</span>
+    }
+    public int getFScore(){
+<span class="nc" id="L109">        return this.fitnessScore;</span>
+    }
+    public void setFScore(int score){
+<span class="nc" id="L112">        this.fitnessScore = score;</span>
+<span class="nc" id="L113">    }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

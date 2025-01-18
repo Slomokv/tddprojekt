@@ -1,6 +1,5 @@
 package tddprojekt;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 

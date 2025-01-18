@@ -64,10 +64,11 @@ public class ProfileTest {
         HashMap<String, Session> dummyMap = new HashMap<String, Session>();
         mcProfile = mock(Profile.class);
 
-        when(mcProfile.calcFScore(dummyMap, 0)).thenReturn(19);
+
+        when(mcProfile.calcFScore(dummyMap, mcProfile.getKeyChain(), 0)).thenReturn(19);
         
-        assertEquals(19, mcProfile.calcFScore(dummyMap, 0));
-        verify(mcProfile).calcFScore(dummyMap, 0);
+        assertEquals(19, mcProfile.calcFScore(dummyMap, mcProfile.getKeyChain(), 0));
+        verify(mcProfile).calcFScore(dummyMap, mcProfile.getKeyChain(), 0);
 
 
         assertEquals(0, testUser.getFScore());
