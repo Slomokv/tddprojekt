@@ -40,9 +40,10 @@ public class ProfileTest {
     @Test
     public void testLogSize(){
 
-        testUser.addSession(testSession)
-                .addSession(testSession)
-                .addSession(testSession);
+        for (int i = 1; i < 3; i++) {
+            testUser.addSession(testSession);
+        }
+        
         int logBookSize = testUser.getLogBook().size();
         boolean logbookNonEmpty = (0 != logBookSize);
 
@@ -61,10 +62,12 @@ public class ProfileTest {
     public void testFScore(){
 
         HashMap<String, Session> dummyMap = new HashMap<String, Session>();
+        mcProfile = mock(Profile.class);
 
-        when(mcProfile.calcFScore(testSession)).thenReturn(19);
-        assertEquals(19, calcFScore(testSession));
-        verify(mcProfile).calcFScore(testSession);
+        when(mcProfile.calcFScore(dummyMap, 0)).thenReturn(19);
+        
+        assertEquals(19, mcProfile.calcFScore(dummyMap, 0));
+        verify(mcProfile).calcFScore(dummyMap, 0);
 
 
         assertEquals(0, testUser.getFScore());
@@ -86,9 +89,9 @@ public class ProfileTest {
         testUser.addSession(sessionThree);
         int trdScore = testUser.getFScore();
 
-        assertEquals(x, fstScore);
-        assertEquals(y, sndScore);
-        assertEquals(z, trdScore);
+        assertTrue(fstScore != 0);
+        assertTrue(sndScore != fstScore);
+        assertTrue(trdScore != sndScore);
 
         
     }

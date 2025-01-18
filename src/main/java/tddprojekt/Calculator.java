@@ -24,6 +24,10 @@ public class Calculator {
     }
 
     public static int fScoreFormula(int currentFS, Session session, int timeSince){
-        return (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
+        int fScore = (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
+        if (fScore < 0) {
+            fScore = 0;
+        }
+        return fScore;
     }
 }

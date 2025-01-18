@@ -16,6 +16,7 @@ public class Profile {
     public Profile(double height, double weight, int age) {
         this.logBook = new HashMap<String, Session>();
         this.logCount = 0;
+        this.keyChain = new ArrayList<String>();
         this.height = height;
         this.weight = weight;
         this.age = age;

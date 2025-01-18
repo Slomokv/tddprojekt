@@ -116,3 +116,14 @@ TODO:
 
 TODO:
 - Köra testerna för Profile, och lägga till tester för undermetoder. Lär använda mocks
+
+
+18/1 (2):
+
+1. Kört testerna för Profile, hittade lite glömda detaljer i både test och konstruktorn
+2. Fixat konstruktor och test, gått från 31% till 77% täckning i Profile
+3. Saknar exceptionhandling, men Exceptions uppstår troligtvis av dålig logik i metoder
+
+
+TODO:
+- Söka efter dålig logik, refaktorera
