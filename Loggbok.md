@@ -122,8 +122,10 @@ TODO:
 
 1. Kört testerna för Profile, hittade lite glömda detaljer i både test och konstruktorn
 2. Fixat konstruktor och test, gått från 31% till 77% täckning i Profile
-3. Saknar exceptionhandling, men Exceptions uppstår troligtvis av dålig logik i metoder
+3. Dock endast två tester som misslyckas, resten av koden saknar täckning för tillfället
+4. Saknar exceptionhandling, men Exceptions uppstår troligtvis av dålig logik i metoder
 
 
 TODO:
+- Täcka resten av koden i Calculator och Profile med tester
 - Söka efter dålig logik, refaktorera
