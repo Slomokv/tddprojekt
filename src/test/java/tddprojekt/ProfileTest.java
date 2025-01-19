@@ -86,12 +86,19 @@ public class ProfileTest {
         assertEquals(3, testUser.getKeyChain().size());
 
 
+
         //-------removeSession()-------
+
 
         testUser.removeSession(1);
         int removedFst = testUser.getFScore();
-        assertEquals(2, testUser.getLogBook().size());
         assertEquals(2, testUser.getKeyChain().size());
+        assertEquals(2, testUser.getLogBook().size());
+
+        testUser.removeSession(1);
+        assertEquals(2, testUser.getKeyChain().size());
+        assertEquals(2, testUser.getLogBook().size());
+
 
         testUser.removeSession(2);
         int removedSnd = testUser.getFScore();
@@ -110,7 +117,7 @@ public class ProfileTest {
         assertTrue(fstScore != initScore);
         assertTrue(sndScore != fstScore);
         assertTrue(trdScore != sndScore);
-        assertTrue(removedFst == trdScore);
+        assertTrue(removedFst != trdScore);
         assertTrue(removedSnd != removedFst);
         assertEquals(0, removedTrd);
 

@@ -37,22 +37,23 @@ public class Profile {
 
     public void removeSession(int id){
         String key = ("" + id);
+        Session fetchedSession = this.getLogBook().get(key);
 
-        if (this.logBook.containsKey(key)) {
+        if (fetchedSession != null) {
             for (int i = 0; i < this.getKeyChain().size(); i++) {
-                if (this.getKeyChain().get(i) == key) {
+                if (id == Integer.parseInt(this.getKeyChain().get(i))) {
                     this.getLogBook().remove(key);
                     this.getKeyChain().remove(i);
-
-                    this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());
                     break;
                 }
             }
+            this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());
         }
         else {
-                System.out.println("Sorry, but the ID could not be found in your Logbook.");     
-        }  
-    }
+            System.out.println("Sorry, but the ID could not be found in your Logbook.");
+        }
+    }  
+    
 
     public void calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
         int logs = logBook.size();

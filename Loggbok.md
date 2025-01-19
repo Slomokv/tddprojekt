@@ -160,3 +160,15 @@ TODO:
 
 TODO:
 - Ändra removeSession så jag kan använda mock för att kolla vilken beslutsgren som faktiskt exekveras i removeSession
+
+
+19/1 (2):
+
+1. 4 timmar in, med lite hjälp, förstod jag felet med villkoret i if-satsen i for-loopen i removeSession
+2. Verkar vara java-problem, då "1" != "1" enligt programmet, trots att båda fungerar att använda och få samma output, men inte bra nog för villkoret i if-satsen (huvudvärk deluxe)
+3. Integer.parseInt för att kringgå detta, fult men det fungerar
+4. Kraven möts fortfarande för uppgiften
+
+TODO:
+- Tester för filter
+- Tester för average velocity
