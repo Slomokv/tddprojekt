@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
 
+
 public class Profile {
     private HashMap<String, Session> logBook;
     private int logCount;
@@ -25,53 +26,58 @@ public class Profile {
 
 
     public void addSession(Session session){
-        HashMap<String, Session> newLogBook = this.getLogBook();
-        ArrayList<String> newKeyChain = this.getKeyChain();
-
         int intId = this.getLogCount() + 1;
         String stringId = ("" + intId);
-        newLogBook.put(stringId, session);
-        newKeyChain.add(stringId);
-
+        this.getLogBook().put(stringId, session);
+        this.getKeyChain().add(stringId);
         this.setLogCount(intId);
-        this.setLogBook(newLogBook);
-        this.setKeyChain(newKeyChain);
 
-        this.setFScore(calcFScore(newLogBook, newKeyChain, this.getFScore()));
+        this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());
     }
 
-    public void removeSession(String id){
-        this.logBook.remove(id);
-        this.keyChain.remove("" + (1 + this.getLogCount())); //iterera genom för att ta bort IDt
+    public void removeSession(int id){
+        String key = ("" + id);
+
+        if (this.logBook.containsKey(key)) {
+            for (int i = 0; i < this.getKeyChain().size(); i++) {
+                if (this.getKeyChain().get(i) == key) {
+                    this.getLogBook().remove(key);
+                    this.getKeyChain().remove(i);
+
+                    this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());
+                    break;
+                }
+            }
+        }
+        else {
+                System.out.println("Sorry, but the ID could not be found in your Logbook.");     
+        }  
     }
 
-
-
-    public int calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
+    public void calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
         int logs = logBook.size();
 
-
         if (logs < 1) {
-            return 0;
+            this.setFScore(0);
         }
         else if (logs == 1) {
             String lastId = keyChain.get(logs - 1);
-            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0);
+            this.setFScore(Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0));
         }
         else {
             String lastId = keyChain.get(logs - 1);
-            LocalDate[] dates = lastSessions(logBook, keyChain);
+            LocalDate[] dates = lastSessions(keyChain);
             int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);
 
-            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince);
+            this.setFScore(Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince));
         }
     }
 
-    public LocalDate[] lastSessions(HashMap<String, Session> logBook, ArrayList<String> keyChain){
+    public LocalDate[] lastSessions(ArrayList<String> keyChain){
         LocalDate[] dates = new LocalDate[2];
         int i = (keyChain.size() - 1);
         for (int j = 0; j < 2; j++) {
-            dates[j] = logBook.get(keyChain.get(i-j)).getDate();
+            dates[j] = this.getLogBook().get(keyChain.get(i-j)).getDate();
         }
         return dates;
     }
@@ -81,9 +87,6 @@ public class Profile {
     public HashMap<String, Session> getLogBook(){
         return this.logBook;
     }
-    public void setLogBook(HashMap<String, Session> logBook){
-        this.logBook = logBook;
-    }
     public int getLogCount(){
         return this.logCount;
     }
@@ -92,9 +95,6 @@ public class Profile {
     }
     public ArrayList<String> getKeyChain(){
         return this.keyChain;
-    }
-    public void setKeyChain(ArrayList<String> keyChain){
-        this.keyChain = keyChain;
     }
     public double getHeight(){
         return this.height;

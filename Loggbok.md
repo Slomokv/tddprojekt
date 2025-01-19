@@ -150,3 +150,13 @@ TODO:
 TODO:
 - Implementera removeSession
 - Städa upp i addSession, calcFScore och lastSession
+
+
+19/1 (1):
+
+1. Ökat täckning och slagit ihop add/removeSession och calcFScore
+2. Städat upp i profile, implementerat removeSession
+3. Får inte removeSession att ta bort målelementet i testUser.logBook
+
+TODO:
+- Ändra removeSession så jag kan använda mock för att kolla vilken beslutsgren som faktiskt exekveras i removeSession
