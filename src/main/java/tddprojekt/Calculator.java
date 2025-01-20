@@ -6,12 +6,12 @@ import java.time.LocalDate;
 
 public class Calculator {
 
-    public static double roundToOneDecimal(double value){
+    public double roundToOneDecimal(double value){
         double cleanValue = (double) (Math.round(value * 10.0))/10.0;
         return cleanValue;
     }
 
-    public static int timeBetweenDays(LocalDate newDate, LocalDate oldDate){
+    public int timeBetweenDays(LocalDate newDate, LocalDate oldDate){
         int newDays = newDate.getDayOfYear();
         int oldDays = oldDate.getDayOfYear();
         int newYear = newDate.getYear();
@@ -23,11 +23,57 @@ public class Calculator {
         return (newDays - oldDays);
     }
 
-    public static int fScoreFormula(int currentFS, Session session, int timeSince){
+    public int fScoreFormula(int currentFS, Session session, int timeSince){
         int fScore = (int) Math.round(currentFS + (session.getDistance() + session.getKmph()/session.getMinPerKm()) - (timeSince/2));
         if (fScore < 0) {
             fScore = 0;
         }
         return fScore;
     }
+
+    public double[] doubleCheckIfBelowZero(double lowerLimit, double upperLimit) {
+    double[] limits = new double[2];
+    limits[0] = lowerLimit;
+    limits[1] = upperLimit;
+        if (lowerLimit < 0) {
+            limits[0] = 0;
+        }
+        if (upperLimit < 0) {
+            limits[1] = 0;
+        }
+    return limits;
+    }
+
+    public double[] doubleCheckIfLower(double[] limits) {
+        if (limits[1] < limits[0]) {
+            double temp = limits[1];
+            limits[1] = limits[0];
+            limits[0] = temp;
+        }
+        return limits;
+    }
+
+    public int[] intCheckIfBelowZero(int lowerLimit, int upperLimit) {
+        int[] limits = new int[2];
+        limits[0] = lowerLimit;
+        limits[1] = upperLimit;
+            if (lowerLimit < 0) {
+                limits[0] = 0;
+            }
+            if (upperLimit < 0) {
+                limits[1] = 0;
+            }
+        return limits;
+    }
+
+    public int[] intCheckIfLower(int[] limits) {
+        if (limits[1] < limits[0]) {
+            int temp = limits[1];
+            limits[1] = limits[0];
+            limits[0] = temp;
+        }
+        return limits;
+    }
+
+
 }

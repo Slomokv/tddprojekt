@@ -150,16 +150,28 @@ public class ProfileTest {
 
     @Test
     public void testAverageKmph() {
+        assertEquals(0, testUser.avgKmph());
+
         testUser.addSession(sessionOne);
         testUser.addSession(sessionTwo);
         testUser.addSession(sessionThree);
+
         double avgKmph = testUser.avgKmph();
         assertEquals(12.2, avgKmph);
     }
 
-    @Test
-    public void testFilter() {
+    @Test //parameterized?
+    public void testFilters() {
+        testUser.addSession(sessionOne);
+        testUser.addSession(sessionTwo);
+        testUser.addSession(sessionThree);
 
+        ArrayList<Session> filteredByDistance = testUser.filteredByDistance(4.2, 5);
+        ArrayList<Session> filteredByTime = testUser.filteredByTime(22, 24);
+
+        assertTrue(filteredByDistance.size() == 2);
+        assertTrue(filteredByTime.size() == 2);
     }
+
 
 }

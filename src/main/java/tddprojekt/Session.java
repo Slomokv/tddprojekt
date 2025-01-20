@@ -48,13 +48,15 @@ public class Session {
     //-------Calculator-------
 
     public double calcKmph(double distance, int time){
+        Calculator calc = new Calculator();
         double hours = time/60.0;
         double kmph = distance/hours;
-        return Calculator.roundToOneDecimal(kmph);
+        return calc.roundToOneDecimal(kmph);
     }
     public double calcMinPerKm(double distance, int time){
+        Calculator calc = new Calculator();
         double minPerKm = time/distance;
-        return Calculator.roundToOneDecimal(minPerKm);
+        return calc.roundToOneDecimal(minPerKm);
     }
 
 }

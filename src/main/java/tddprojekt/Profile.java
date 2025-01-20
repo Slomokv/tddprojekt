@@ -57,6 +57,7 @@ public class Profile {
     
 
     public void calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
+        Calculator calc = new Calculator();
         int logs = logBook.size();
 
         if (logs < 1) {
@@ -64,14 +65,14 @@ public class Profile {
         }
         else if (logs == 1) {
             String lastId = keyChain.get(logs - 1);
-            this.setFScore(Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0));
+            this.setFScore(calc.fScoreFormula(currentFS, logBook.get(lastId), 0));
         }
         else {
             String lastId = keyChain.get(logs - 1);
             LocalDate[] dates = lastSessions(keyChain);
-            int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);
+            int timeSince = calc.timeBetweenDays(dates[0], dates[1]);
 
-            this.setFScore(Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince));
+            this.setFScore(calc.fScoreFormula(currentFS, logBook.get(lastId), timeSince));
         }
     }
 
@@ -95,12 +96,43 @@ public class Profile {
     }
 
     public double avgKmph() {
+        Calculator calc = new Calculator();
         double avgKmph = 0;
         for (String s : this.getKeyChain()) {
             avgKmph = avgKmph + this.getLogBook().get(s).getKmph();
         }
-        avgKmph = Calculator.roundToOneDecimal(avgKmph/this.getLogBook().size());
+        avgKmph = calc.roundToOneDecimal(avgKmph/this.getLogBook().size());
         return avgKmph;
+    }
+
+    public ArrayList<Session> filteredByDistance(double lowerLimit, double upperLimit) {
+        Calculator calc = new Calculator();
+        ArrayList<Session> filtered = new ArrayList<Session>();
+
+        double[] limits = calc.doubleCheckIfBelowZero(lowerLimit, upperLimit);
+        limits = calc.doubleCheckIfLower(limits);
+        
+        for (String s : this.getKeyChain()) {
+            if ((limits[0] <= this.getLogBook().get(s).getDistance()) && (this.getLogBook().get(s).getDistance() <= limits[1])) {
+                filtered.add(this.getLogBook().get(s));
+            }
+        }
+        return filtered;
+    }
+
+    public ArrayList<Session> filteredByTime(int lowerLimit, int upperLimit) {
+        Calculator calc = new Calculator();
+        ArrayList<Session> filtered = new ArrayList<Session>();
+
+        int[] limits = calc.intCheckIfBelowZero(lowerLimit, upperLimit);
+        limits = calc.intCheckIfLower(limits);
+
+        for (String s : this.getKeyChain()) {
+            if ((limits[0] <= this.getLogBook().get(s).getTime()) && (this.getLogBook().get(s).getTime() <= limits[1])) {
+                filtered.add(this.getLogBook().get(s));
+            }
+        }
+        return filtered;
     }
 
 

@@ -185,4 +185,17 @@ TODO:
 TODO:
 - Tester för filter
 - Test för fScoreFormula som resulterar i mindre än noll (eller värre, divisioner med noll), som ska hanteras
+- Test för print för löprundor by id
 - Implementera spärrar för att lägga in ogiltiga time och distance (negativa värden)
+
+
+20/1 (2):
+
+1. Kört tester för filtermetoderna, alla gröna utom filteredByTime
+2. Refaktorerat metoderna för filtren, bra täckning
+3. Instansierar Calculator överallt istället för att ha statiska metoder
+
+TODO:
+- Test för print
+- Försöka få med ID i filtrerade logBooks
+- Test för fScoreFormula

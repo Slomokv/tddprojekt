@@ -14,12 +14,14 @@ public class CalculatorTest {
     @Mock
     private Profile mcProfile;
     
+    Calculator calc = new Calculator();
+    
     @Test
     public void testRoundingToOne(){
         
         double answer = 5.3;
         double roundMePls = 5.3245321;
-        double rounded = Calculator.roundToOneDecimal(roundMePls);
+        double rounded = calc.roundToOneDecimal(roundMePls);
 
         assertEquals(answer, rounded);
     }
