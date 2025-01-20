@@ -10,51 +10,61 @@ public class Session {
     private LocalDate date;
     private double kmph;
     private double minPerKm;
+    private String id;
 
-<span class="nc" id="L14">    public Session(double distance, int time, LocalDate date) {</span>
-<span class="nc" id="L15">        this.distance = distance;</span>
-<span class="nc" id="L16">        this.time = time;</span>
-<span class="nc" id="L17">        this.date = date;</span>
-<span class="nc" id="L18">        this.kmph = calcKmph(distance, time);</span>
-<span class="nc" id="L19">        this.minPerKm = calcMinPerKm(distance, time);</span>
-<span class="nc" id="L20">    }</span>
+<span class="fc" id="L15">    public Session(double distance, int time, LocalDate date) {</span>
+<span class="fc" id="L16">        this.distance = distance;</span>
+<span class="fc" id="L17">        this.time = time;</span>
+<span class="fc" id="L18">        this.date = date;</span>
+<span class="fc" id="L19">        this.kmph = calcKmph(distance, time);</span>
+<span class="fc" id="L20">        this.minPerKm = calcMinPerKm(distance, time);</span>
+<span class="fc" id="L21">        this.id = &quot;&quot;;</span>
+<span class="fc" id="L22">    }</span>
 
     public Session(double distance, int time) {
-<span class="nc" id="L23">        this(distance, time, (LocalDate.now()));</span>
+<span class="fc" id="L25">        this(distance, time, (LocalDate.now()));</span>
 
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L27">    }</span>
 
 
     //-------Getters-------
 
     public double getDistance(){
-<span class="nc" id="L31">        return this.distance;</span>
+<span class="fc" id="L33">        return this.distance;</span>
     }
     public int getTime(){
-<span class="nc" id="L34">        return this.time;</span>
+<span class="fc" id="L36">        return this.time;</span>
     }
     public LocalDate getDate(){
-<span class="nc" id="L37">        return this.date;</span>
+<span class="fc" id="L39">        return this.date;</span>
     }
     public double getKmph(){
-<span class="nc" id="L40">        return this.kmph;</span>
+<span class="fc" id="L42">        return this.kmph;</span>
     }
     public double getMinPerKm(){
-<span class="nc" id="L43">        return this.minPerKm;</span>
+<span class="fc" id="L45">        return this.minPerKm;</span>
     }
+    public String getId(){
+<span class="fc" id="L48">        return this.id;</span>
+    }
+    public void setId(String id){
+<span class="fc" id="L51">        this.id = id;</span>
+<span class="fc" id="L52">    }</span>
 
 
 
     //-------Calculator-------
 
     public double calcKmph(double distance, int time){
-<span class="nc" id="L51">        double hours = time/60.0;</span>
-<span class="nc" id="L52">        double kmph = distance/hours;</span>
-<span class="nc" id="L53">        return Calculator.roundToOneDecimal(kmph);</span>
+<span class="fc" id="L59">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L60">        double hours = time/60.0;</span>
+<span class="fc" id="L61">        double kmph = distance/hours;</span>
+<span class="fc" id="L62">        return calc.roundToOneDecimal(kmph);</span>
     }
     public double calcMinPerKm(double distance, int time){
-<span class="nc" id="L56">        double minPerKm = time/distance;</span>
-<span class="nc" id="L57">        return Calculator.roundToOneDecimal(minPerKm);</span>
+<span class="fc" id="L65">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L66">        double minPerKm = time/distance;</span>
+<span class="fc" id="L67">        return calc.roundToOneDecimal(minPerKm);</span>
     }
 
 }

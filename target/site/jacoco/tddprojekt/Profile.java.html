@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
 
+
 public class Profile {
     private HashMap&lt;String, Session&gt; logBook;
     private int logCount;
@@ -13,104 +14,186 @@ public class Profile {
     private int age;
     private int fitnessScore;
 
-<span class="nc" id="L16">    public Profile(double height, double weight, int age) {</span>
-<span class="nc" id="L17">        this.logBook = new HashMap&lt;String, Session&gt;();</span>
-<span class="nc" id="L18">        this.logCount = 0;</span>
-<span class="nc" id="L19">        this.keyChain = new ArrayList&lt;String&gt;();</span>
-<span class="nc" id="L20">        this.height = height;</span>
-<span class="nc" id="L21">        this.weight = weight;</span>
-<span class="nc" id="L22">        this.age = age;</span>
-<span class="nc" id="L23">        this.fitnessScore = 0;</span>
-<span class="nc" id="L24">    }</span>
+<span class="fc" id="L17">    public Profile(double height, double weight, int age) {</span>
+<span class="fc" id="L18">        this.logBook = new HashMap&lt;String, Session&gt;();</span>
+<span class="fc" id="L19">        this.logCount = 0;</span>
+<span class="fc" id="L20">        this.keyChain = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L21">        this.height = height;</span>
+<span class="fc" id="L22">        this.weight = weight;</span>
+<span class="fc" id="L23">        this.age = age;</span>
+<span class="fc" id="L24">        this.fitnessScore = 0;</span>
+<span class="fc" id="L25">    }</span>
 
+    //-------Session Handling-------
 
     public void addSession(Session session){
-<span class="nc" id="L28">        HashMap&lt;String, Session&gt; newLogBook = this.getLogBook();</span>
-<span class="nc" id="L29">        ArrayList&lt;String&gt; newKeyChain = this.getKeyChain();</span>
+<span class="fc" id="L30">        int intId = this.getLogCount() + 1;</span>
+<span class="fc" id="L31">        String stringId = (&quot;&quot; + intId);</span>
+<span class="fc" id="L32">        session.setId(stringId);</span>
+<span class="fc" id="L33">        this.getLogBook().put(stringId, session);</span>
+<span class="fc" id="L34">        this.getKeyChain().add(stringId);</span>
+<span class="fc" id="L35">        this.setLogCount(intId);</span>
 
-<span class="nc" id="L31">        int intId = this.getLogCount() + 1;</span>
-<span class="nc" id="L32">        String stringId = (&quot;&quot; + intId);</span>
-<span class="nc" id="L33">        newLogBook.put(stringId, session);</span>
-<span class="nc" id="L34">        newKeyChain.add(stringId);</span>
-
-<span class="nc" id="L36">        this.setLogCount(intId);</span>
-<span class="nc" id="L37">        this.setLogBook(newLogBook);</span>
-<span class="nc" id="L38">        this.setKeyChain(newKeyChain);</span>
-
-<span class="nc" id="L40">        this.setFScore(calcFScore(newLogBook, newKeyChain, this.getFScore()));</span>
-<span class="nc" id="L41">    }</span>
-
-    public void removeSession(String id){
-<span class="nc" id="L44">        this.logBook.remove(id);</span>
-<span class="nc" id="L45">        this.keyChain.remove(&quot;&quot; + (1 + this.getLogCount())); //iterera genom för att ta bort IDt</span>
-<span class="nc" id="L46">    }</span>
+<span class="fc" id="L37">        this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());</span>
+<span class="fc" id="L38">    }</span>
 
 
+    public void removeSession(int id){
+<span class="fc" id="L42">        String key = (&quot;&quot; + id);</span>
+<span class="fc" id="L43">        Session fetchedSession = this.getLogBook().get(key);</span>
 
-    public int calcFScore(HashMap&lt;String, Session&gt; logBook, ArrayList&lt;String&gt; keyChain, int currentFS){
-<span class="nc" id="L51">        int logs = logBook.size();</span>
-
-
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (logs &lt; 1) {</span>
-<span class="nc" id="L55">            return 0;</span>
-        }
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        else if (logs == 1) {</span>
-<span class="nc" id="L58">            String lastId = keyChain.get(logs - 1);</span>
-<span class="nc" id="L59">            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), 0);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (fetchedSession != null) {</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            for (int i = 0; i &lt; this.getKeyChain().size(); i++) {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">                if (id == Integer.parseInt(this.getKeyChain().get(i))) {</span>
+<span class="fc" id="L48">                    this.getLogBook().remove(key);</span>
+<span class="fc" id="L49">                    this.getKeyChain().remove(i);</span>
+<span class="fc" id="L50">                    break;</span>
+                }
+            }
+<span class="fc" id="L53">            this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());</span>
         }
         else {
-<span class="nc" id="L62">            String lastId = keyChain.get(logs - 1);</span>
-<span class="nc" id="L63">            LocalDate[] dates = lastSessions(logBook, keyChain);</span>
-<span class="nc" id="L64">            int timeSince = Calculator.timeBetweenDays(dates[0], dates[1]);</span>
-
-<span class="nc" id="L66">            return Calculator.fScoreFormula(currentFS, logBook.get(lastId), timeSince);</span>
+<span class="fc" id="L56">            System.out.println(&quot;Sorry, but the ID could not be found in your Logbook.&quot;);</span>
         }
+<span class="fc" id="L58">    }  </span>
+    
+    //-------Fitness Score-------
+
+    public void calcFScore(HashMap&lt;String, Session&gt; logBook, ArrayList&lt;String&gt; keyChain, int currentFS){
+<span class="fc" id="L63">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L64">        int logs = logBook.size();</span>
+
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (logs &lt; 1) {</span>
+<span class="fc" id="L67">            this.setFScore(0);</span>
+        }
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        else if (logs == 1) {</span>
+<span class="fc" id="L70">            String lastId = keyChain.get(logs - 1);</span>
+<span class="fc" id="L71">            this.setFScore(calc.fScoreFormula(currentFS, logBook.get(lastId), 0));</span>
+<span class="fc" id="L72">        }</span>
+        else {
+<span class="fc" id="L74">            String lastId = keyChain.get(logs - 1);</span>
+<span class="fc" id="L75">            LocalDate[] dates = lastSessions(keyChain);</span>
+<span class="fc" id="L76">            int timeSince = calc.timeBetweenDays(dates[0], dates[1]);</span>
+
+<span class="fc" id="L78">            this.setFScore(calc.fScoreFormula(currentFS, logBook.get(lastId), timeSince));</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+
+    public LocalDate[] lastSessions(ArrayList&lt;String&gt; keyChain){
+<span class="fc" id="L84">        LocalDate[] dates = new LocalDate[2];</span>
+<span class="fc" id="L85">        int i = (keyChain.size() - 1);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        for (int j = 0; j &lt; 2; j++) {</span>
+<span class="fc" id="L87">            dates[j] = this.getLogBook().get(keyChain.get(i-j)).getDate();</span>
+        }
+<span class="fc" id="L89">        return dates;</span>
     }
 
-    public LocalDate[] lastSessions(HashMap&lt;String, Session&gt; logBook, ArrayList&lt;String&gt; keyChain){
-<span class="nc" id="L71">        LocalDate[] dates = new LocalDate[2];</span>
-<span class="nc" id="L72">        int i = (1 - keyChain.size());</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        for (int j = 0; j &lt; 2; j++) {</span>
-<span class="nc" id="L74">            dates[j] = logBook.get(keyChain.get(i-j)).getDate();</span>
+    //-------Stats Handlers-------
+
+    public double totalDistance() {
+<span class="fc" id="L95">        double totalDistance = 0;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (String s : this.getKeyChain()) {</span>
+<span class="fc" id="L97">            totalDistance = totalDistance + (this.getLogBook().get(s)).getDistance();</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        return totalDistance;</span>
+    }
+
+    public double avgKmph() {
+<span class="fc" id="L103">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L104">        double avgKmph = 0;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (String s : this.getKeyChain()) {</span>
+<span class="fc" id="L106">            avgKmph = avgKmph + this.getLogBook().get(s).getKmph();</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">        avgKmph = calc.roundToOneDecimal(avgKmph/this.getLogBook().size());</span>
+<span class="fc" id="L109">        return avgKmph;</span>
+    }
+
+    //-------Filters-------
+
+    public ArrayList&lt;Session&gt; filteredByDistance(double lowerLimit, double upperLimit) {
+<span class="fc" id="L115">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L116">        ArrayList&lt;Session&gt; filtered = new ArrayList&lt;Session&gt;();</span>
+
+<span class="fc" id="L118">        double[] limits = calc.doubleCheckIfBelowZero(lowerLimit, upperLimit);</span>
+<span class="fc" id="L119">        limits = calc.doubleCheckIfLower(limits);</span>
+        
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        for (String s : this.getKeyChain()) {</span>
+<span class="pc bpc" id="L122" title="1 of 4 branches missed.">            if ((limits[0] &lt;= this.getLogBook().get(s).getDistance()) &amp;&amp; (this.getLogBook().get(s).getDistance() &lt;= limits[1])) {</span>
+<span class="fc" id="L123">                filtered.add(this.getLogBook().get(s));</span>
+            }
+<span class="fc" id="L125">        }</span>
+<span class="fc" id="L126">        return filtered;</span>
+    }
+
+    public ArrayList&lt;Session&gt; filteredByTime(int lowerLimit, int upperLimit) {
+<span class="fc" id="L130">        Calculator calc = new Calculator();</span>
+<span class="fc" id="L131">        ArrayList&lt;Session&gt; filtered = new ArrayList&lt;Session&gt;();</span>
+
+<span class="fc" id="L133">        int[] limits = calc.intCheckIfBelowZero(lowerLimit, upperLimit);</span>
+<span class="fc" id="L134">        limits = calc.intCheckIfLower(limits);</span>
+
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        for (String s : this.getKeyChain()) {</span>
+<span class="pc bpc" id="L137" title="1 of 4 branches missed.">            if ((limits[0] &lt;= this.getLogBook().get(s).getTime()) &amp;&amp; (this.getLogBook().get(s).getTime() &lt;= limits[1])) {</span>
+<span class="fc" id="L138">                filtered.add(this.getLogBook().get(s));</span>
+            }
+<span class="fc" id="L140">        }</span>
+<span class="fc" id="L141">        return filtered;</span>
+    }
+
+    //-------Print Methods-------
+
+    public String[] printLog() {
+<span class="nc" id="L147">        String[] printedLog = new String[this.getLogBook().size()];</span>
+<span class="nc" id="L148">        Calculator calc = new Calculator();</span>
+
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        for (int i = 0; i &lt; this.getKeyChain().size(); i++) {</span>
+<span class="nc" id="L151">            printedLog[i] = calc.sessionToString(this.getLogBook().get(this.getKeyChain().get(i)));</span>
         }
-<span class="nc" id="L76">        return dates;</span>
+<span class="nc" id="L153">        return printedLog;</span>
+    }
+
+    public String[] printLog(ArrayList&lt;Session&gt; sessionList) {
+<span class="nc" id="L157">        String[] printedLog = new String[this.getLogBook().size()];</span>
+<span class="nc" id="L158">        Calculator calc = new Calculator();</span>
+<span class="nc" id="L159">        int i = 0;</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        for (Session s : sessionList) {</span>
+<span class="nc" id="L162">            printedLog[i] = calc.sessionToString(s);</span>
+<span class="nc" id="L163">            i++;</span>
+<span class="nc" id="L164">        }</span>
+<span class="nc" id="L165">        return printedLog;</span>
     }
 
     //-------Get&amp;Set-------
 
     public HashMap&lt;String, Session&gt; getLogBook(){
-<span class="nc" id="L82">        return this.logBook;</span>
+<span class="fc" id="L171">        return this.logBook;</span>
     }
-    public void setLogBook(HashMap&lt;String, Session&gt; logBook){
-<span class="nc" id="L85">        this.logBook = logBook;</span>
-<span class="nc" id="L86">    }</span>
     public int getLogCount(){
-<span class="nc" id="L88">        return this.logCount;</span>
+<span class="fc" id="L174">        return this.logCount;</span>
     }
     public void setLogCount(int count){
-<span class="nc" id="L91">        this.logCount = count;</span>
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L177">        this.logCount = count;</span>
+<span class="fc" id="L178">    }</span>
     public ArrayList&lt;String&gt; getKeyChain(){
-<span class="nc" id="L94">        return this.keyChain;</span>
+<span class="fc" id="L180">        return this.keyChain;</span>
     }
-    public void setKeyChain(ArrayList&lt;String&gt; keyChain){
-<span class="nc" id="L97">        this.keyChain = keyChain;</span>
-<span class="nc" id="L98">    }</span>
     public double getHeight(){
-<span class="nc" id="L100">        return this.height;</span>
+<span class="fc" id="L183">        return this.height;</span>
     }
     public double getWeight(){
-<span class="nc" id="L103">        return this.weight;</span>
+<span class="fc" id="L186">        return this.weight;</span>
     }
     public int getAge(){
-<span class="nc" id="L106">        return this.age;</span>
+<span class="fc" id="L189">        return this.age;</span>
     }
     public int getFScore(){
-<span class="nc" id="L109">        return this.fitnessScore;</span>
+<span class="fc" id="L192">        return this.fitnessScore;</span>
     }
     public void setFScore(int score){
-<span class="nc" id="L112">        this.fitnessScore = score;</span>
-<span class="nc" id="L113">    }</span>
+<span class="fc" id="L195">        this.fitnessScore = score;</span>
+<span class="fc" id="L196">    }</span>
 
 
 
