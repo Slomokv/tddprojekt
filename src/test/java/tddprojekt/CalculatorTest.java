@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CalculatorTest {
 
@@ -44,16 +42,90 @@ public class CalculatorTest {
         assertEquals(answer, rounded);
     }
 
-    @Test
-    public void testFScore(){
-
-
-    }
 
     @Test
     public void testDoubleCheckIfBelowZero() {
-        
+        double[] actual1 = calc.doubleCheckIfBelowZero(-1.1, -0.5);
+        double[] actual2 = calc.doubleCheckIfBelowZero(1.1, -0.5);
+        double[] actual3 = calc.doubleCheckIfBelowZero(1.1, 0.5);
+
+        assertEquals(0, actual1[0]);
+        assertEquals(0, actual1[1]);
+        assertEquals(1.1, actual2[0]);
+        assertEquals(0, actual2[1]);
+        assertEquals(1.1, actual3[0]);
+        assertEquals(0.5, actual3[1]);
     }
+
+    @Test
+    public void testIntCheckIfBelowZero() {
+        int[] actual1 = calc.intCheckIfBelowZero(-1, -5);
+        int[] actual2 = calc.intCheckIfBelowZero(-2, 5);
+        int[] actual3 = calc.intCheckIfBelowZero(3, 4);
+
+        assertEquals(0, actual1[0]);
+        assertEquals(0, actual1[1]);
+        assertEquals(0, actual2[0]);
+        assertEquals(5, actual2[1]);
+        assertEquals(3, actual3[0]);
+        assertEquals(4, actual3[1]);
+    }
+
+    @Test
+    public void testIntCheckIfLower(){
+        int[] testBase1 = new int[2];
+        int[] testBase2 = new int[2];
+
+        testBase1[0] = 2;
+        testBase1[1] = 4;
+        testBase2[0] = 4;
+        testBase2[1] = 3;
+
+        int[] expected1 = new int[2];
+        int[] expected2 = new int[2];
+
+        expected1[0] = 2;
+        expected1[1] = 4;
+        expected2[0] = 3;
+        expected2[1] = 4;
+
+        int[] actual1 = calc.intCheckIfLower(testBase1);
+        int[] actual2 = calc.intCheckIfLower(testBase2);
+
+        assertEquals(expected1[0], actual1[0]);
+        assertEquals(expected1[1], actual1[1]);
+        assertEquals(expected2[0], actual2[0]);
+        assertEquals(expected2[1], actual2[1]);
+    }
+
+    @Test
+    public void testDoubleCheckIfLower(){
+        double[] testBase1 = new double[2];
+        double[] testBase2 = new double[2];
+
+        testBase1[0] = 2.2;
+        testBase1[1] = 4.1;
+        testBase2[0] = 4.3;
+        testBase2[1] = 3.5;
+
+        double[] expected1 = new double[2];
+        double[] expected2 = new double[2];
+
+        expected1[0] = 2.2;
+        expected1[1] = 4.1;
+        expected2[0] = 3.5;
+        expected2[1] = 4.3;
+
+        double[] actual1 = calc.doubleCheckIfLower(testBase1);
+        double[] actual2 = calc.doubleCheckIfLower(testBase2);
+
+        assertEquals(expected1[0], actual1[0]);
+        assertEquals(expected1[1], actual1[1]);
+        assertEquals(expected2[0], actual2[0]);
+        assertEquals(expected2[1], actual2[1]);
+    }
+
+    
 
     @Test
     public void testSessionToString() {

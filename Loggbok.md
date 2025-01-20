@@ -214,3 +214,12 @@ Undrar om kodtäckningen ballar ur när man testar overloadade metoder? Skulle f
 TODO:
 - Skriva tester för testFScore, checkmetoderna som kollar att filtergränserna är okej för filtermetoderna
 - Fixa jacoco.exec, igen... något hände när jag tog bort HelloWorld med main()
+
+
+20/1 (4):
+
+1. CalculatorTest har täckt checkIfBelowZero och checkIfLower till belåtenhet, testerna godkända
+2. calcFScore är täckt, låter den vara pga deadline
+
+TODO:
+- Fixa jacoco.exec
