@@ -5,7 +5,6 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.ArrayList;
 
 public class ProfileTest {
@@ -18,7 +17,12 @@ public class ProfileTest {
     Profile testUser = new Profile(height, weight, age);
     Session testSession = new Session(4.2, 41);
 
+    @Mock
+    public Profile mcProfile;
 
+    @BeforeEach void setupMcProfile() {
+        mcProfile = mock(Profile.class);
+    }
 
 
     @Test
@@ -160,7 +164,7 @@ public class ProfileTest {
         assertEquals(12.2, avgKmph);
     }
 
-    @Test //parameterized?
+    @Test
     public void testFilters() {
         testUser.addSession(sessionOne);
         testUser.addSession(sessionTwo);
@@ -173,5 +177,54 @@ public class ProfileTest {
         assertTrue(filteredByTime.size() == 2);
     }
 
+    @Test
+    private void testPrintLog() {
+        Calculator calc = new Calculator();
+        ArrayList<Session> mcFilteredLog = new ArrayList<Session>();
+        ArrayList<Session> mcPoorlyFilteredLog = new ArrayList<Session>();
+        mcProfile.addSession(sessionOne);
+        mcProfile.addSession(sessionTwo);
+        mcProfile.addSession(sessionThree);
+
+        mcFilteredLog = mcProfile.filteredByDistance(4.1, 4.9);
+        mcPoorlyFilteredLog = mcProfile.filteredByDistance(0, 99);
+        String[] printWithoutArgument = mcProfile.printLog();
+        String[] printFilteredWithArgument = mcProfile.printLog(mcFilteredLog);
+        String[] printPoorlyFilteredWithArgument = mcProfile.printLog(mcPoorlyFilteredLog);
+
+        verify(mcProfile).printLog();
+        verify(mcProfile).printLog(mcFilteredLog);
+
+        assertTrue(("" + printWithoutArgument) == ("" + printPoorlyFilteredWithArgument));
+
+        sessionOne.setId("1");
+        sessionTwo.setId("2");
+
+        String expectedString =  calc.sessionToString(sessionOne);
+        assertEquals(expectedString, mcProfile.getLogBook().get("1"));
+
+
+        String[] expectedPrint = new String[2];
+        expectedPrint[0] =
+        ("\nSession ID: " + "1" + 
+        "\nDate: " + "2024-12-13" +
+        "\nDistance: " + "4.2" + "km" + 
+        "\nTime: " + "23" + " minutes" + 
+        "\nAverage velocity: " + sessionOne.getKmph() + "km/h" +
+        "\nMinutes per kilometer: " + sessionOne.getMinPerKm() + "minutes");
+
+        expectedPrint[1] =
+        ("\nSession ID: " + "2" + 
+        "\nDate: " + "2025-01-07" +
+        "\nDistance: " + "4.7" + "km" + 
+        "\nTime: " + "23" + " minutes" + 
+        "\nAverage velocity: " + sessionTwo.getKmph() + "km/h" +
+        "\nMinutes per kilometer: " + sessionTwo.getMinPerKm() + "minutes");
+
+        assertEquals(expectedPrint[0], printFilteredWithArgument[0]);
+        assertEquals(expectedPrint[1], printFilteredWithArgument[1]);
+    }
+
+ 
 
 }

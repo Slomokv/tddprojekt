@@ -199,3 +199,18 @@ TODO:
 - Test för print
 - Försöka få med ID i filtrerade logBooks
 - Test för fScoreFormula
+
+20/1 (3):
+
+1. Lade till ID:t som en variabel i själva Sessionerna, för att underlätta printandemetoderna
+2. Skapade tester för printLog-metoder, skapade en variant som inte tog några argument, och en som tog en ArrayList, med hänsyn till filter-metoderna
+3. Implementerat printLog() och printLog(arrayList), samt sessionToString i Calculator
+4. Alla tester godkända, försöker brainstorma sätt att få det att misslyckas, men allt ser faktiskt bra ut. Nån gång måste vara den första!
+5. Täckning saknas för printLog() och printLog(arrayList) vad jag än gör
+
+Reflektion:
+Undrar om kodtäckningen ballar ur när man testar overloadade metoder? Skulle förklara täckningen
+
+TODO:
+- Skriva tester för testFScore, checkmetoderna som kollar att filtergränserna är okej för filtermetoderna
+- Fixa jacoco.exec, igen... något hände när jag tog bort HelloWorld med main()

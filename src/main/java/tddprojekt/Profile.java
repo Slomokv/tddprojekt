@@ -24,10 +24,12 @@ public class Profile {
         this.fitnessScore = 0;
     }
 
+    //-------Session Handling-------
 
     public void addSession(Session session){
         int intId = this.getLogCount() + 1;
         String stringId = ("" + intId);
+        session.setId(stringId);
         this.getLogBook().put(stringId, session);
         this.getKeyChain().add(stringId);
         this.setLogCount(intId);
@@ -55,6 +57,7 @@ public class Profile {
         }
     }  
     
+    //-------Fitness Score-------
 
     public void calcFScore(HashMap<String, Session> logBook, ArrayList<String> keyChain, int currentFS){
         Calculator calc = new Calculator();
@@ -86,7 +89,8 @@ public class Profile {
         return dates;
     }
 
-    
+    //-------Stats Handlers-------
+
     public double totalDistance() {
         double totalDistance = 0;
         for (String s : this.getKeyChain()) {
@@ -104,6 +108,8 @@ public class Profile {
         avgKmph = calc.roundToOneDecimal(avgKmph/this.getLogBook().size());
         return avgKmph;
     }
+
+    //-------Filters-------
 
     public ArrayList<Session> filteredByDistance(double lowerLimit, double upperLimit) {
         Calculator calc = new Calculator();
@@ -135,6 +141,29 @@ public class Profile {
         return filtered;
     }
 
+    //-------Print Methods-------
+
+    public String[] printLog() {
+        String[] printedLog = new String[this.getLogBook().size()];
+        Calculator calc = new Calculator();
+
+        for (int i = 0; i < this.getKeyChain().size(); i++) {
+            printedLog[i] = calc.sessionToString(this.getLogBook().get(this.getKeyChain().get(i)));
+        }
+        return printedLog;
+    }
+
+    public String[] printLog(ArrayList<Session> sessionList) {
+        String[] printedLog = new String[this.getLogBook().size()];
+        Calculator calc = new Calculator();
+        int i = 0;
+
+        for (Session s : sessionList) {
+            printedLog[i] = calc.sessionToString(s);
+            i++;
+        }
+        return printedLog;
+    }
 
     //-------Get&Set-------
 

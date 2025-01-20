@@ -10,6 +10,7 @@ public class Session {
     private LocalDate date;
     private double kmph;
     private double minPerKm;
+    private String id;
 
     public Session(double distance, int time, LocalDate date) {
         this.distance = distance;
@@ -17,6 +18,7 @@ public class Session {
         this.date = date;
         this.kmph = calcKmph(distance, time);
         this.minPerKm = calcMinPerKm(distance, time);
+        this.id = "";
     }
 
     public Session(double distance, int time) {
@@ -41,6 +43,12 @@ public class Session {
     }
     public double getMinPerKm(){
         return this.minPerKm;
+    }
+    public String getId(){
+        return this.id;
+    }
+    public void setId(String id){
+        this.id = id;
     }
 
 

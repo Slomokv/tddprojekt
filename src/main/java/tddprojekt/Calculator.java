@@ -75,5 +75,14 @@ public class Calculator {
         return limits;
     }
 
+    public String sessionToString(Session session) {
+        String stringToReturn = ("\nSession ID: " + session.getId() + 
+                                "\nDate: " + session.getDate() +
+                                "\nDistance: " + session.getDistance() + "km" + 
+                                "\nTime: " + session.getTime() + " minutes" + 
+                                "\nAverage velocity: " + session.getKmph() + "km/h" +
+                                "\nMinutes per kilometer: " + session.getMinPerKm() + "minutes");
+        return stringToReturn;
+    }
 
 }
