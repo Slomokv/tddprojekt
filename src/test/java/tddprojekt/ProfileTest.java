@@ -18,8 +18,7 @@ public class ProfileTest {
     Profile testUser = new Profile(height, weight, age);
     Session testSession = new Session(4.2, 41);
 
-    @Mock
-    private Profile mcProfile;
+
 
 
     @Test
@@ -85,7 +84,8 @@ public class ProfileTest {
         assertEquals(3, testUser.getLogBook().size());
         assertEquals(3, testUser.getKeyChain().size());
 
-
+        assertEquals(3, testUser.getLogCount());
+        assertTrue(testUser.getLogCount() == testUser.getLogBook().size());
 
         //-------removeSession()-------
 
@@ -95,7 +95,7 @@ public class ProfileTest {
         assertEquals(2, testUser.getKeyChain().size());
         assertEquals(2, testUser.getLogBook().size());
 
-        testUser.removeSession(1);
+        testUser.removeSession(1); //checking for non-existent key
         assertEquals(2, testUser.getKeyChain().size());
         assertEquals(2, testUser.getLogBook().size());
 
@@ -110,6 +110,9 @@ public class ProfileTest {
         assertEquals(0, testUser.getLogBook().size());
         assertEquals(0, testUser.getKeyChain().size());
 
+        assertEquals(3, testUser.getLogCount());
+        assertFalse(testUser.getLogCount() == testUser.getLogBook().size());
+
 
         //-------calcFScore()-------
 
@@ -120,27 +123,43 @@ public class ProfileTest {
         assertTrue(removedFst != trdScore);
         assertTrue(removedSnd != removedFst);
         assertEquals(0, removedTrd);
+    }
 
 
 
-}
+    LocalDate dateOne = LocalDate.of(2024,12,13);
+    LocalDate dateTwo = LocalDate.of(2025,1,7);
+    LocalDate dateThree = LocalDate.of(2025,1,16);
+
+    ArrayList<Session> sessionList = new ArrayList<>();
+    Session sessionOne = new Session(4.2, 23, dateOne);
+    Session sessionTwo = new Session(4.7, 23, dateTwo);
+    Session sessionThree = new Session(5.6, 25, dateThree);
+
 
     @Test
-    public void testFScore(){
-
-
-        mcProfile = mock(Profile.class);
-        HashMap<String, Session> mcLogBook = mcProfile.getLogBook();
-        ArrayList<String> mcKeyChain = mcProfile.getKeyChain();
-
-        //when(mcProfile.calcFScore(mcLogBook, mcKeyChain, 0)).thenReturn(mcProfile.setFScore(19));
-        //assertEquals(19, mcProfile.calcFScore(mcLogBook, mcKeyChain, 0));
-        //verify(mcProfile).calcFScore(mcLogBook, mcKeyChain, 0);
-
-
-
-
+    public void testTotalDistance() {
+        assertEquals(0, testUser.totalDistance());
         
+        testUser.addSession(sessionOne);
+        testUser.addSession(sessionTwo);
+        testUser.addSession(sessionThree);
+
+        assertEquals(14.5, testUser.totalDistance());
+    }
+
+    @Test
+    public void testAverageKmph() {
+        testUser.addSession(sessionOne);
+        testUser.addSession(sessionTwo);
+        testUser.addSession(sessionThree);
+        double avgKmph = testUser.avgKmph();
+        assertEquals(12.2, avgKmph);
+    }
+
+    @Test
+    public void testFilter() {
+
     }
 
 }

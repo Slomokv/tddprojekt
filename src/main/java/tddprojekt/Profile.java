@@ -35,6 +35,7 @@ public class Profile {
         this.calcFScore(this.getLogBook(), this.getKeyChain(), this.getFScore());
     }
 
+
     public void removeSession(int id){
         String key = ("" + id);
         Session fetchedSession = this.getLogBook().get(key);
@@ -74,6 +75,7 @@ public class Profile {
         }
     }
 
+
     public LocalDate[] lastSessions(ArrayList<String> keyChain){
         LocalDate[] dates = new LocalDate[2];
         int i = (keyChain.size() - 1);
@@ -82,6 +84,25 @@ public class Profile {
         }
         return dates;
     }
+
+    
+    public double totalDistance() {
+        double totalDistance = 0;
+        for (String s : this.getKeyChain()) {
+            totalDistance = totalDistance + (this.getLogBook().get(s)).getDistance();
+        }
+        return totalDistance;
+    }
+
+    public double avgKmph() {
+        double avgKmph = 0;
+        for (String s : this.getKeyChain()) {
+            avgKmph = avgKmph + this.getLogBook().get(s).getKmph();
+        }
+        avgKmph = Calculator.roundToOneDecimal(avgKmph/this.getLogBook().size());
+        return avgKmph;
+    }
+
 
     //-------Get&Set-------
 

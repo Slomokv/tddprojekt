@@ -1,10 +1,18 @@
 package tddprojekt;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalculatorTest {
     
+    @Mock
+    private Profile mcProfile;
     
     @Test
     public void testRoundingToOne(){
@@ -15,4 +23,11 @@ public class CalculatorTest {
 
         assertEquals(answer, rounded);
     }
+
+    @Test
+    public void testFScore(){
+
+    mcProfile = mock(Profile.class);
+    }
+
 }

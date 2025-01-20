@@ -170,5 +170,19 @@ TODO:
 4. Kraven möts fortfarande för uppgiften
 
 TODO:
+- Tester för filter, avgKmph, totalDistance
+- Test för fScoreFormula som resulterar i mindre än noll (eller värre, divisioner med noll), som ska hanteras
+- Implementera spärrar för att lägga in ogiltiga time och distance (negativa värden)
+
+
+20/1 (1):
+
+1. Skrivit tester för totalDistance och avgKmph
+2. Testerna körda och misslyckade
+3. Åtgärdade snabbt, förstod inte syntaxet helt, igen...
+4. Täckning 98%, testerna godkända
+
+TODO:
 - Tester för filter
-- Tester för average velocity
+- Test för fScoreFormula som resulterar i mindre än noll (eller värre, divisioner med noll), som ska hanteras
+- Implementera spärrar för att lägga in ogiltiga time och distance (negativa värden)
